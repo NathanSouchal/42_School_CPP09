@@ -6,7 +6,7 @@
 /*   By: nsouchal <nsouchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 12:43:57 by nsouchal          #+#    #+#             */
-/*   Updated: 2024/09/27 13:25:01 by nsouchal         ###   ########.fr       */
+/*   Updated: 2024/09/30 14:18:26 by nsouchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,16 @@ void    fill_data_base_map(std::map<std::string, float> &data_base)
     data_base_stream.close();
 }
 
-void    fill_data_file_map(std::map<std::string, float> &data_file, char *fileName)
+void    convert_input(std::map<std::string, float> &data_base, char *fileName)
 {
     std::ifstream   data_file_stream(fileName);
     std::string     line;
-    size_t          quote_pos;
+    size_t          pipe_pos;
+    float           value;
+    std::string     date;
+    std::string     date_data_base;
     char            *end;
+    
     
     if (!data_file_stream.is_open())
     {
@@ -50,11 +54,29 @@ void    fill_data_file_map(std::map<std::string, float> &data_file, char *fileNa
         return ;
     while (getline(data_file_stream, line))
     {
-        check_line(line);
-        quote_pos = line.find('|');
-        data_file[line.substr(0, quote_pos - 1)] = strtof((line.substr(quote_pos + 2)).c_str(), &end);
+        if (check_line(line))
+        {
+            pipe_pos = line.find('|');
+            date = line.substr(0, pipe_pos - 1);
+            date_data_base = find_closest_date(data_base, date);
+            value = strtof((line.substr(pipe_pos + 2)).c_str(), &end);
+            std::cout << date << " => " << value << " = " << data_base[date_data_base] * value << std::endl;
+        }
     }
     data_file_stream.close();
+}
+
+std::string find_closest_date(std::map<std::string, float> &data_base, std::string date)
+{
+   std::map<std::string, float>::iterator   it;
+   
+   it = data_base.lower_bound(date);
+   if (it->first != date)
+   {
+        it--;
+        return (it->first);
+   }
+   return (it->first);
 }
 
 bool    check_first_line(std::string line)
@@ -77,7 +99,33 @@ bool    check_line(std::string line)
         std::cout << "Error: bad input => " << line.substr(0, pos - 1) << std::endl;
         return (false);
     }
+    if (!check_value(line.substr(pos + 2)))
+        return (false);
     return (true);
+}
+
+bool    check_value(std::string value)
+{
+    float   f_value;
+    char    *end;
+    
+    f_value = strtof(value.c_str(), &end);
+    if ((f_value == 0 && !(value.size() == 0 && value[0] == 0)) || *end != '\0')
+    {
+        std::cout << "Error: bad input => " << value << std::endl;
+        return (false);
+    }
+    if (f_value < 0)
+    {
+        std::cout << "Error: not a positive number." << std::endl;
+        return (false);
+    }
+    if (f_value > 1000)
+    {
+        std::cout << "Error: too large a number." << std::endl;
+        return (false);
+    }
+    return (true); 
 }
 
 bool    check_date(std::string date)
