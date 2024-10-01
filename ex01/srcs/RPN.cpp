@@ -6,7 +6,7 @@
 /*   By: nsouchal <nsouchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 09:08:29 by nsouchal          #+#    #+#             */
-/*   Updated: 2024/10/01 09:53:53 by nsouchal         ###   ########.fr       */
+/*   Updated: 2024/10/01 10:48:07 by nsouchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,12 @@ void RPN::read_arg(char *arg_str)
 {
     for (int i = 0; arg_str[i]; i++)
     {
-        if (isdigit(arg_str[i]))
+        if (i % 2 == 0 && isdigit(arg_str[i]))
             this->push(arg_str[i] - '0');
-        else if (is_operator(arg_str[i]))
+        else if (i % 2 == 0 && is_operator(arg_str[i]))
             this->calculate(arg_str[i]);
+        else if (arg_str[i] !=  ' ')
+            throw RPN::ARG_ERROR();
     }
 }
 
