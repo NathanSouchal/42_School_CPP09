@@ -6,21 +6,21 @@
 #    By: nsouchal <nsouchal@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/26 12:41:17 by nsouchal          #+#    #+#              #
-#    Updated: 2024/10/01 08:59:34 by nsouchal         ###   ########.fr        #
+#    Updated: 2024/10/01 13:44:57 by nsouchal         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 
-NAME = RPN
+NAME = PmergeMe
 
 SRC_FILE =	main.cpp \
-			RPN.cpp
+			PmergeMe.cpp
 
 DIR_BUILD		=	.build/
 DIR_SRCS 		= 	srcs/
 DIR_HEADERS		=	includes/
 
-HEADERFILES =	$(DIR_HEADERS)RPN.hpp
+HEADERFILES =	$(DIR_HEADERS)PmergeMe.hpp
 
 OBJS			=	$(patsubst %.cpp, $(DIR_BUILD)%.o, $(SRCS))
 SRCS			=	$(addprefix $(DIR_SRCS),$(SRC_FILE))
