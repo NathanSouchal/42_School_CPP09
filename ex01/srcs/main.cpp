@@ -6,7 +6,7 @@
 /*   By: nsouchal <nsouchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 09:42:54 by nsouchal          #+#    #+#             */
-/*   Updated: 2024/10/01 10:59:59 by nsouchal         ###   ########.fr       */
+/*   Updated: 2024/10/02 10:22:23 by nsouchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int main(int argc, char **argv)
     
     if (argc != 2)
     {
-        std::cout << "Enter ONE argument please" << std::endl;
+        std::cerr << "Enter ONE argument please" << std::endl;
         return (1);
     }
     try
@@ -32,7 +32,7 @@ int main(int argc, char **argv)
     }
     catch (std::exception &e)
     {
-        std::cout << e.what() << std::endl;
+        std::cerr << e.what() << std::endl;
     }
     return (0);
 }

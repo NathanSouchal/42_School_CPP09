@@ -6,7 +6,7 @@
 /*   By: nsouchal <nsouchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 09:08:29 by nsouchal          #+#    #+#             */
-/*   Updated: 2024/10/01 10:48:07 by nsouchal         ###   ########.fr       */
+/*   Updated: 2024/10/02 10:22:39 by nsouchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void    RPN::calculate(char operator_)
     {
         if (b == 0)
         {
-            std::cout << "Division by zero" << std::endl;
+            std::cerr << "Division by zero" << std::endl;
             throw RPN::ARG_ERROR();
         }
         this->push(a / b);

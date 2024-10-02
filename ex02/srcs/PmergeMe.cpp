@@ -6,7 +6,7 @@
 /*   By: nsouchal <nsouchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 13:48:43 by nsouchal          #+#    #+#             */
-/*   Updated: 2024/10/01 16:18:29 by nsouchal         ###   ########.fr       */
+/*   Updated: 2024/10/02 09:31:18 by nsouchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ PmergeMeVector  &PmergeMeVector::operator=(const PmergeMeVector &rhs)
 {
     if (this != &rhs)
     {
-        this->vector_ = rhs.vector_;
+        this->vector_pairs = rhs.vector_pairs;
     }
     return (*this);
 }
@@ -63,5 +63,8 @@ void    PmergeMeVector::parseSequence(char **sequence)
     }
     if (!temp.empty())
         splited_seq.push_back(temp);
-    
+    for (int i = 0; i < splited_seq.size() ; i++)
+    {
+        std::cout << splited_seq[i] << std::endl;
+    }
 }
