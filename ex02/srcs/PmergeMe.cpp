@@ -108,37 +108,47 @@ VECTOR_PAIRS PmergeMeVector::sortPairs(VECTOR sorted_large_nb, VECTOR_PAIRS pair
 VECTOR  PmergeMeVector::insertSort(VECTOR small_nb, VECTOR large_nb)
 {
     VECTOR                      jacobsthal_suit = generateJacobsthal(small_nb.size());
-    std::vector<long>::iterator it_begin;
-    std::vector<long>::iterator it_mid;
-    std::vector<long>::iterator it_end;
     std::vector<long>::iterator it_jacob;
-    long                        last_index;
+    long                        last_index = 0;
     long                        index;
     
     large_nb.insert(large_nb.begin(), small_nb[0]);
-    it_begin = large_nb.begin();
     it_jacob = jacobsthal_suit.begin()++;
     for (unsigned long inserted_elems = 1; inserted_elems <= small_nb.size(); inserted_elems++)
     {
-        if (*it_jacob < small_nb.size())
+        if (*it_jacob < static_cast<long>(small_nb.size()))
             index = *it_jacob;
-        
-        last_index = *it_jacob;
-        
-        it_end = large_nb.begin() + *it_jacob;
-        while (it_end != it_begin + 1)
+        else
+            index = small_nb.size() - 1;
+        while (index != last_index)
         {
-            it_mid = it_begin + (std::distance(it_begin, it_end) / 2);
-            if (small_nb[*it_jacob] < *it_mid)
-                it_end = it_mid;
-            else
-                it_begin = it_mid;
+            binarySearch(index, small_nb, large_nb, inserted_elems);
+            index--;
         }
-        large_nb.insert(it_end, small_nb[*it_jacob]);
-        
+        last_index = *it_jacob;
+        it_jacob++;
     }
+    return (large_nb);
 }
 
+void    PmergeMeVector::binarySearch(long index, VECTOR &small_nb, VECTOR &large_nb, unsigned long inserted_elems)
+{
+    std::vector<long>::iterator it_begin;
+    std::vector<long>::iterator it_mid;
+    std::vector<long>::iterator it_end;
+
+    it_begin = large_nb.begin();
+    it_end = large_nb.begin() + index + inserted_elems;
+    while (it_end != it_begin + 1)
+    {
+        it_mid = it_begin + (std::distance(it_begin, it_end) / 2);
+        if (small_nb[index] < *it_mid)
+            it_end = it_mid;
+        else
+            it_begin = it_mid;
+    }
+    large_nb.insert(it_end, small_nb[index]);
+}
 
 VECTOR    PmergeMeVector::parseSequence(char **sequence)
 {

@@ -32,6 +32,15 @@ class ARG_ERROR : public std::exception
 
 VECTOR  generateJacobsthal(unsigned long size);
  
+template <typename T> void printContainer(T container)
+{
+    for (typename T::iterator it = container.begin(); it != container.end(); it++)
+    {
+        std::cout << *it << " ";
+    }
+    std::cout << std::endl;
+}
+
 class PmergeMeVector
 {
     
@@ -48,6 +57,7 @@ class PmergeMeVector
     VECTOR          parseSequence(char **sequence);
     void            fill_and_convert(VECTOR &parsed_seq, std::string temp);
     VECTOR          insertSort(VECTOR small_nb, VECTOR large_nb);
+    void            binarySearch(long index, VECTOR &small_nb, VECTOR &large_nb, unsigned long inserted_elems);
     VECTOR_PAIRS    makePairs(VECTOR parsed_seq);
     VECTOR_PAIRS    sortPairs(VECTOR sorted_large_nb, VECTOR_PAIRS pairs);
 };

@@ -15,6 +15,8 @@
 int main(int argc, char **argv)
 {
     PmergeMeVector vecClass;
+    VECTOR         unsorted_seq;
+    VECTOR         sorted_seq;
     
     if (argc < 2)
     {
@@ -23,7 +25,10 @@ int main(int argc, char **argv)
     }
     try
     {
-          vecClass.parseSequence(argv + 1);
+        unsorted_seq = vecClass.parseSequence(argv + 1);
+        printContainer(unsorted_seq);
+        sorted_seq = vecClass.algo(unsorted_seq);
+        printContainer(sorted_seq);
     }
     catch(const std::exception& e)
     {
