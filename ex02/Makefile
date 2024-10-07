@@ -25,7 +25,7 @@ HEADERFILES =	$(DIR_HEADERS)PmergeMe.hpp
 OBJS			=	$(patsubst %.cpp, $(DIR_BUILD)%.o, $(SRCS))
 SRCS			=	$(addprefix $(DIR_SRCS),$(SRC_FILE))
 
-FLAGS		=	-Wall -Werror -Wextra -std=c++98
+FLAGS		=	-Wall -Werror -Wextra -g3 -std=c++98
 
 CC = c++
 

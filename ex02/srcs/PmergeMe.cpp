@@ -19,12 +19,8 @@ PmergeMeVector::PmergeMeVector(const PmergeMeVector &src)
     *this = src;
 }
 
-PmergeMeVector  &PmergeMeVector::operator=(const PmergeMeVector &rhs)
+PmergeMeVector  &PmergeMeVector::operator=(const PmergeMeVector &)
 {
-    if (this != &rhs)
-    {
-        this->odd_case_nb = rhs.odd_case_nb;
-    }
     return (*this);
 }
 
@@ -52,7 +48,13 @@ VECTOR    PmergeMeVector::algo(VECTOR unsorted_vec)
     VECTOR_PAIRS    vector_pairs;
     VECTOR          large_nb;
     VECTOR          small_nb;
+    long            odd_case_nb = -1;
     
+    if (unsorted_vec.size() % 2)
+    {
+        odd_case_nb = unsorted_vec.back();
+        unsorted_vec.pop_back();
+    }
     vector_pairs = this->makePairs(unsorted_vec);
     for (unsigned long i = 0; i < vector_pairs.size(); i++)
     {
@@ -65,6 +67,8 @@ VECTOR    PmergeMeVector::algo(VECTOR unsorted_vec)
     {
         small_nb.push_back(vector_pairs[i].first);
     }
+    if (odd_case_nb != -1)
+        small_nb.push_back(odd_case_nb);
     return (insertSort(small_nb, large_nb));
 }
 
@@ -74,11 +78,6 @@ VECTOR_PAIRS    PmergeMeVector::makePairs(VECTOR parsed_seq)
     
     for (unsigned long i = 0; i < parsed_seq.size(); i += 2)
     {
-        if (i == parsed_seq.size() - 1)
-        {
-            vector_pairs.push_back(std::make_pair(parsed_seq[i], NULL));
-            break ;
-        }
         if (parsed_seq[i] < parsed_seq[i + 1])
             vector_pairs.push_back(std::make_pair(parsed_seq[i], parsed_seq[i + 1]));
         else
@@ -137,11 +136,15 @@ void    PmergeMeVector::binarySearch(long index, VECTOR &small_nb, VECTOR &large
     std::vector<long>::iterator it_mid;
     std::vector<long>::iterator it_end;
 
+    std::cout << "Index : " << index << std::endl;
+    printContainer(small_nb);
+    printContainer(large_nb);
     it_begin = large_nb.begin();
     it_end = large_nb.begin() + index + inserted_elems;
     while (it_end != it_begin + 1)
     {
         it_mid = it_begin + (std::distance(it_begin, it_end) / 2);
+         std::cout << "itmid : " << *it_mid << std::endl;
         if (small_nb[index] < *it_mid)
             it_end = it_mid;
         else
@@ -175,12 +178,6 @@ VECTOR    PmergeMeVector::parseSequence(char **sequence)
     }
     if (!temp.empty())
         this->fill_and_convert(unsorted_vect, temp);
-    this->odd_case_nb = -1;
-    if (unsorted_vect.size() % 2)
-    {
-        odd_case_nb = unsorted_vect.back();
-        unsorted_vect.pop_back();
-    }
     return (unsorted_vect);
 }
 

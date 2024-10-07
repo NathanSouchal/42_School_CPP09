@@ -43,11 +43,6 @@ template <typename T> void printContainer(T container)
 
 class PmergeMeVector
 {
-    
-    private:
-    long    odd_case_nb;
-    
-    
     public:
     PmergeMeVector();
     PmergeMeVector(const PmergeMeVector &src);
