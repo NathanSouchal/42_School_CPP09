@@ -6,7 +6,7 @@
 /*   By: nsouchal <nsouchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 12:43:57 by nsouchal          #+#    #+#             */
-/*   Updated: 2024/10/02 09:27:15 by nsouchal         ###   ########.fr       */
+/*   Updated: 2024/10/03 14:03:28 by nsouchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,9 +141,11 @@ bool    check_date(std::string date)
     
     pos_dash1 = date.find('-');
     year = date.substr(0, pos_dash1);
-    if (strtol(year.c_str(), &end, 10) < 2009 || strtol(year.c_str(), &end, 10) > 2022)
+    if (strtol(year.c_str(), &end, 10) < 2009 || strtol(year.c_str(), &end, 10) > 2022 || *end != '\0')
         return (false);
     pos_dash2 = (date.substr(pos_dash1 + 1)).find('-');
+    if (pos_dash2 == std::string::npos)
+        return (false);
     month_str = date.substr(pos_dash1 + 1, pos_dash2);
     month = strtol(month_str.c_str(), &end, 10);
     if (month_str.size() != 2)
