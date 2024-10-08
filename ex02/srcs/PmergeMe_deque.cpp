@@ -6,7 +6,7 @@
 /*   By: nsouchal <nsouchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 13:48:43 by nsouchal          #+#    #+#             */
-/*   Updated: 2024/10/08 15:44:16 by nsouchal         ###   ########.fr       */
+/*   Updated: 2024/10/08 16:13:55 by nsouchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ DEQUE_PAIRS PmergeMeDeque::sortPairs(DEQUE sorted_large_nb, DEQUE_PAIRS pairs)
 
 DEQUE  PmergeMeDeque::insertSort(DEQUE small_nb, DEQUE large_nb)
 {
-    VECTOR                      jacobsthal_suit = generateJacobsthal(small_nb.size());
+    VECTOR                      jacobsthal_suit = generateJacobsthal(small_nb.size() + 10);
     std::vector<long>::iterator it_jacob;
     long                        last_index = -1;
     long                        index;
