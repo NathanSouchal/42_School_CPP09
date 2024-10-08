@@ -6,7 +6,7 @@
 #    By: nsouchal <nsouchal@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/26 12:41:17 by nsouchal          #+#    #+#              #
-#    Updated: 2024/10/01 13:44:57 by nsouchal         ###   ########.fr        #
+#    Updated: 2024/10/08 13:51:37 by nsouchal         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,8 @@
 NAME = PmergeMe
 
 SRC_FILE =	main.cpp \
-			PmergeMe.cpp
+			PmergeMe.cpp \
+			PmergeMe_deque.cpp
 
 DIR_BUILD		=	.build/
 DIR_SRCS 		= 	srcs/

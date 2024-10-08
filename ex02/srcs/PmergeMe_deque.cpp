@@ -1,52 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   PmergeMe.cpp                                       :+:      :+:    :+:   */
+/*   PmergeMe_deqe.cpp                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nsouchal <nsouchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 13:48:43 by nsouchal          #+#    #+#             */
-/*   Updated: 2024/10/08 14:24:46 by nsouchal         ###   ########.fr       */
+/*   Updated: 2024/10/08 13:50:53 by nsouchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "PmergeMe.hpp"
 
-PmergeMeVector::PmergeMeVector() {}
+PmergeMeDeque::PmergeMeDeque() {}
 
-PmergeMeVector::PmergeMeVector(const PmergeMeVector &src)
+PmergeMeDeque::PmergeMeDeque(const PmergeMeDeque &src)
 {
     *this = src;
 }
 
-PmergeMeVector  &PmergeMeVector::operator=(const PmergeMeVector &)
+PmergeMeDeque  &PmergeMeDeque::operator=(const PmergeMeDeque &)
 {
     return (*this);
 }
 
-PmergeMeVector::~PmergeMeVector() {}
+PmergeMeDeque::~PmergeMeDeque() {}
 
-const char *ARG_ERROR::what() const throw()
+DEQUE    PmergeMeDeque::algo(DEQUE unsorted_vec)
 {
-    return ("Error: bad arguments");    
-}
-
-VECTOR  generateJacobsthal(unsigned long size)
-{
-    VECTOR  suit;
-    suit.push_back(0);    
-    for (unsigned long i = 2; i < size; i++)
-    {
-        suit.push_back(suit[i - 1] + (2 * suit[i - 2]));
-    }
-    return (suit);
-}
-
-VECTOR    PmergeMeVector::algo(VECTOR unsorted_vec)
-{
-    VECTOR_PAIRS    vector_pairs;
-    VECTOR          large_nb;
-    VECTOR          small_nb;
+    DEQUE_PAIRS    vector_pairs;
+    DEQUE          large_nb;
+    DEQUE          small_nb;
     long            odd_case_nb = -1;
     
     if (unsorted_vec.size() % 2)
@@ -71,9 +55,9 @@ VECTOR    PmergeMeVector::algo(VECTOR unsorted_vec)
     return (insertSort(small_nb, large_nb));
 }
 
-VECTOR_PAIRS    PmergeMeVector::makePairs(VECTOR parsed_seq)
+DEQUE_PAIRS    PmergeMeDeque::makePairs(DEQUE parsed_seq)
 {
-    VECTOR_PAIRS    vector_pairs;
+    DEQUE_PAIRS    vector_pairs;
     
     for (unsigned long i = 0; i < parsed_seq.size(); i += 2)
     {
@@ -85,9 +69,9 @@ VECTOR_PAIRS    PmergeMeVector::makePairs(VECTOR parsed_seq)
     return (vector_pairs);
 }
 
-VECTOR_PAIRS PmergeMeVector::sortPairs(VECTOR sorted_large_nb, VECTOR_PAIRS pairs)
+DEQUE_PAIRS PmergeMeDeque::sortPairs(DEQUE sorted_large_nb, DEQUE_PAIRS pairs)
 {
-    VECTOR_PAIRS    sorted_pairs;
+    DEQUE_PAIRS    sorted_pairs;
     
     for (unsigned long i = 0; i < sorted_large_nb.size(); i++)
     {
@@ -103,7 +87,7 @@ VECTOR_PAIRS PmergeMeVector::sortPairs(VECTOR sorted_large_nb, VECTOR_PAIRS pair
     return (sorted_pairs);
 }
 
-VECTOR  PmergeMeVector::insertSort(VECTOR small_nb, VECTOR large_nb)
+DEQUE  PmergeMeDeque::insertSort(DEQUE small_nb, DEQUE large_nb)
 {
     VECTOR                      jacobsthal_suit = generateJacobsthal(small_nb.size());
     std::vector<long>::iterator it_jacob;
@@ -129,11 +113,11 @@ VECTOR  PmergeMeVector::insertSort(VECTOR small_nb, VECTOR large_nb)
     return (large_nb);
 }
 
-void    PmergeMeVector::binarySearch(long index, VECTOR &small_nb, VECTOR &large_nb, unsigned long inserted_elems)
+void    PmergeMeDeque::binarySearch(long index, DEQUE &small_nb, DEQUE &large_nb, unsigned long inserted_elems)
 {
-    std::vector<long>::iterator it_begin;
-    std::vector<long>::iterator it_mid;
-    std::vector<long>::iterator it_end;
+    std::deque<long>::iterator it_begin;
+    std::deque<long>::iterator it_mid;
+    std::deque<long>::iterator it_end;
 
     it_begin = large_nb.begin();
     it_end = large_nb.begin() + index + inserted_elems;
@@ -151,11 +135,11 @@ void    PmergeMeVector::binarySearch(long index, VECTOR &small_nb, VECTOR &large
         large_nb.insert(it_end, small_nb[index]);
 }
 
-VECTOR    PmergeMeVector::parseSequence(char **sequence)
+DEQUE    PmergeMeDeque::parseSequence(char **sequence)
 {
     std::string str_seq;
     std::string temp;
-    VECTOR      unsorted_vect;
+    DEQUE      unsorted_vect;
     
     for (int index_seq = 0; sequence[index_seq]; index_seq++)
     {
@@ -179,7 +163,7 @@ VECTOR    PmergeMeVector::parseSequence(char **sequence)
     return (unsorted_vect);
 }
 
-void    PmergeMeVector::fill_and_convert(VECTOR &parsed_seq, std::string temp)
+void    PmergeMeDeque::fill_and_convert(DEQUE &parsed_seq, std::string temp)
 {
     char    *end;
     errno = 0;
