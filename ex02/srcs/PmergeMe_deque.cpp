@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   PmergeMe_deqe.cpp                                  :+:      :+:    :+:   */
+/*   PmergeMe_deque.cpp                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nsouchal <nsouchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 13:48:43 by nsouchal          #+#    #+#             */
-/*   Updated: 2024/10/08 13:50:53 by nsouchal         ###   ########.fr       */
+/*   Updated: 2024/10/08 15:44:16 by nsouchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,6 @@ DEQUE  PmergeMeDeque::insertSort(DEQUE small_nb, DEQUE large_nb)
     it_jacob = jacobsthal_suit.begin();
     while (inserted_elems < small_nb.size())
     {
-        
         index = std::min(*it_jacob, static_cast<long>(small_nb.size() - 1));
         while (index > last_index && index >= 0)
         {

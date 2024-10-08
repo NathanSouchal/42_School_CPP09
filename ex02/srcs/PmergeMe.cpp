@@ -6,7 +6,7 @@
 /*   By: nsouchal <nsouchal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 13:48:43 by nsouchal          #+#    #+#             */
-/*   Updated: 2024/10/08 14:24:46 by nsouchal         ###   ########.fr       */
+/*   Updated: 2024/10/08 15:50:07 by nsouchal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ VECTOR  generateJacobsthal(unsigned long size)
 {
     VECTOR  suit;
     suit.push_back(0);    
+    suit.push_back(1);    
     for (unsigned long i = 2; i < size; i++)
     {
         suit.push_back(suit[i - 1] + (2 * suit[i - 2]));
@@ -105,7 +106,7 @@ VECTOR_PAIRS PmergeMeVector::sortPairs(VECTOR sorted_large_nb, VECTOR_PAIRS pair
 
 VECTOR  PmergeMeVector::insertSort(VECTOR small_nb, VECTOR large_nb)
 {
-    VECTOR                      jacobsthal_suit = generateJacobsthal(small_nb.size());
+    VECTOR                      jacobsthal_suit = generateJacobsthal(small_nb.size() + 10);
     std::vector<long>::iterator it_jacob;
     long                        last_index = -1;
     long                        index;
@@ -115,7 +116,6 @@ VECTOR  PmergeMeVector::insertSort(VECTOR small_nb, VECTOR large_nb)
     it_jacob = jacobsthal_suit.begin();
     while (inserted_elems < small_nb.size())
     {
-        
         index = std::min(*it_jacob, static_cast<long>(small_nb.size() - 1));
         while (index > last_index && index >= 0)
         {
